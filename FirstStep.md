@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 
 class MainTest {
     @Test
-    void given_a_grade_bigger_than_seven_then_status_approved(){
+    void checkStatusApproved(){
         //Given
         int grade = 9;
         //When
@@ -49,7 +49,7 @@ import org.junit.jupiter.api.Test;
 
 class MainTest {
     @Test
-    void given_a_grade_bigger_than_seven_then_status_approved() {
+    void checkStatusApproved() {
         //Given
         int grade = 9;
         //When
@@ -59,7 +59,7 @@ class MainTest {
     }
 
     @Test
-    void given_a_grade_lower_than_seven_then_status_not_approved(){
+    void checkStatusNotApproved(){
         //Given
         int grade = 3;
         //When
