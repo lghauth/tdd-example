@@ -1,4 +1,3 @@
-# tdd-example
 # TDD
 
 > “Good unit test and acceptance test coverage are the hallmarks of an XP  project.
