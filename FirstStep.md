@@ -3,14 +3,14 @@
 In this first step, we received the below Business Logic:
  
 - Business Logic
-    - If grade bigger than 7 then status is APPROVED
-    - If grade lower than 7 then status is NOT APPROVED
+    - If grade greater than 7 then status is APPROVED
+    - If grade less than 7 then status is NOT APPROVED
 
 ##### Unit Tests
 We will start by creating 2 simple tests. Note that they are not 100% correct yet and also the Business Logic has a failure.
 That's what we want in this first step and we will build the knowledge incrementally as the tests will also evolve incrementally.
 
-First we will create a test which will test when a grade is bigger than 7, the status should return Approved:
+First we will create a test which will test when a grade is greater than 7, the status should return Approved:
 ```java
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -41,7 +41,7 @@ public class Main {
 }
 ```
 
-Now we are going to create the second test, to test when the grade is lower than 7:
+Now we are going to create the second test, to test when the grade is less than 7:
 
 ```java
 import org.junit.Assert;
@@ -70,7 +70,7 @@ class MainTest {
 }
 ```
 
-The test above will fail as the checkStatus method is not handling grade lower than 7:
+The test above will fail as the checkStatus method is not handling grade less than 7:
 
 ```
 java.lang.AssertionError: expected:<NOT APPROVED> but was:<null>
