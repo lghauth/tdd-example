@@ -3,44 +3,62 @@ import org.junit.jupiter.api.Test;
 
 class MainTest {
     @Test
-    void given_the_grade_low_limit_for_status_approved_then_status_approved() {
+    void given_a_grade_equals_or_greater_than_seven_then_status_should_be_approved() {
+        //Given
         int grade = 7;
-        String result = Main.checkStatus(grade);
-        Assert.assertEquals("Approved".toUpperCase(), result);
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Approved".toUpperCase(), status);
     }
 
     @Test
-    void given_the_grade_high_limit_for_status_approved_then_status_approved() {
+    void given_a_grade_equals_or_less_than_ten_then_status_should_be_approved() {
+        //Given
         int grade = 10;
-        String result = Main.checkStatus(grade);
-        Assert.assertEquals("Approved".toUpperCase(), result);
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Approved".toUpperCase(), status);
     }
 
     @Test
-    void given_the_grade_low_limit_for_status_not_approved_then_status_not_approved() {
+    void given_a_grade_equals_or_greater_than_zero_then_status_should_be_not_approved() {
+        //Given
         int grade = 0;
-        String result = Main.checkStatus(grade);
-        Assert.assertEquals("Not Approved".toUpperCase(), result);
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Not Approved".toUpperCase(), status);
     }
 
     @Test
-    void given_the_grade_high_limit_for_status_not_approved_then_status_not_approved() {
+    void given_a_grade_equals_or_less_than_six_then_status_should_be_not_approved() {
+        //Given
         int grade = 6;
-        String result = Main.checkStatus(grade);
-        Assert.assertEquals("Not Approved".toUpperCase(), result);
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Not Approved".toUpperCase(), status);
     }
 
     @Test
-    void given_grade_greater_than_10_then_status_error() {
-        int grade = 11;
-        String result = Main.checkStatus(grade);
-        Assert.assertEquals("Error".toUpperCase(), result);
-    }
-
-    @Test
-    void given_grade_less_than_0_then_status_error() {
+    void given_a_grade_less_than_zero_then_status_should_be_error() {
+        //Given
         int grade = -1;
-        String result = Main.checkStatus(grade);
-        Assert.assertEquals("Error".toUpperCase(), result);
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Error".toUpperCase(), status);
+    }
+
+    @Test
+    void given_a_grade_greater_than_ten_then_status_should_be_error() {
+        //Given
+        int grade = 11;
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Error".toUpperCase(), status);
     }
 }
