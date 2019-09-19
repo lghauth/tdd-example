@@ -41,4 +41,24 @@ class MainTest {
         //Then
         Assert.assertEquals("Not Approved".toUpperCase(), status);
     }
+
+    @Test
+    void given_a_grade_less_than_zero_then_status_should_be_error() {
+        //Given
+        int grade = -1;
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Error".toUpperCase(), status);
+    }
+
+    @Test
+    void given_a_grade_greater_than_ten_then_status_should_be_error() {
+        //Given
+        int grade = 11;
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Error".toUpperCase(), status);
+    }
 }
