@@ -31,14 +31,14 @@ class MainTest {
     }
 
     @Test
-    void given_grade_bigger_than_10_then_status_error() {
+    void given_grade_greater_than_10_then_status_error() {
         int grade = 11;
         String result = Main.checkStatus(grade);
         Assert.assertEquals("Error".toUpperCase(), result);
     }
 
     @Test
-    void given_grade_lower_than_0_then_status_error() {
+    void given_grade_less_than_0_then_status_error() {
         int grade = -1;
         String result = Main.checkStatus(grade);
         Assert.assertEquals("Error".toUpperCase(), result);
