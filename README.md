@@ -1,81 +1,175 @@
-# TDD
+### TDD example
+#### Third Step
 
-> “Good unit test and acceptance test coverage are the hallmarks of an XP  project.
-An XP project takes the attitude that developers are responsible for proving to their customers that the code works correctly, not customers proving the code is
-broken.”
+Note: If you did not check the FirstStep and SecondStep Branchs. Please check and follow the steps:
 
-## The Agile Test - 4 Quadrants
+[FirstStep](https://github.com/lghauth/tdd-example/blob/FirstStep/README.md)
+[SecondStep](https://github.com/lghauth/tdd-example/blob/SecondStep/README.md)
 
-![Agile Testing Matrix](https://www.scaledagileframework.com/wp-content/uploads/2018/09/Agile-Testing_F01_web.png)
+In the Second Step we fixed the tests to reflect exactly the business logic:
 
-## Tests Pyramid
-![Inverting the Test Pyramid](http://www.adapttransformation.com/wp-content/uploads/flip.jpg)
+> - If grade greater than 7 then status is APPROVED
+> - If grade less than 7 then status is NOT APPROVED
 
-## How the developers code? How they think when they are coding?
-  - Zig Zag
-  - Refactor?
-    - Who will touch the code? If it is not you, will someone else touch the code?
-  - Unit Test to help Refactor
 
-## Unit Tests
-  - UNIT TESTING is a level of software testing where individual units of a software are tested.
-  - Unit tests are Developer's tests. It is the Developer testing what they are coding.
-  - What is the problem if the Developer doesn't test their code?
-    - How many processor we have here running code?
-    - What you can do in your life without a code running?
-    - Boeing 737
-    - Volkswagen problem
-    - Insulin app
-    - Company Balance sheet
+Now that the name of my tests are matching the Business Logic. Even our tests now are matching the business logic, one 
+question is raised. What happens when the grade is 7? So at this point we found that our tests are not covering when the
+grade is equal 7. So we need back to PO (or BA) and ask, what happens when the grade is exactly 7 (not greater and not 
+less than 7).
 
-### Unit Tests Benefits
-  - Ensure your code is working
-  - Maintain the code is easier
-  - Refactor
-  - A testable code is Decoupled by default
+After checking with the PO, he explain to us that when the grade is 7 the status should be APPROVED. So now our Business
+Logic is:
 
-### Test Coverage
-  - What is test coverage?
-  - The market says 80%
-  - What to test:
-    - Public methods
-  - Sonar / Build / PR
-  - Strategy to add Unit Test
-    - Start with 10% then ensure that this % will not drop
-      - This way I ensure that new code will have test
+> - If grade equals or greater than 7 then status is APPROVED
+> - If grade less than 7 then status is NOT APPROVED
 
-### But what the problem of writing tests after and not before the Dev?
-  - But I'm writing testable code?
-    - If not, most probably I'll not write tests
-    - If I'm not writing tests, most probably my test suite will not be trusty
+Such question, make us to think about if there is any limit for the grade. What is the domain for grade. So we ask the
+PO. And he explains that the grade can be between 0 and 10. And from 0 to 6 the status should be not approved and from 7
+to 10 the status should be approved.
 
-## TDD
+Well, now our Business Logic is:
 
-### TDD Benefits
-  - TDD is a developer tool
-  - Helps the Dev to think before code
-  - Helps the Dev to question about Business Logic before coding
-    - Finger thinking
-  - YAGNI
-  - Tests as Documentation - A Developer Documentation - Code
+> - If grade equals or greater than 7 then status is APPROVED
+> - If grade equals or less than 10 then status is APPROVED
 
-### TDD Process
+> - If grade equals or greater than 0 then status is NOT APPROVED
+> - If grade equals or less than 6 then status is NOT APPROVED
 
-![TDD Process](https://www.scaledagileframework.com/wp-content/uploads/2018/09/Test-Driven-Development_F01_web-768x684.png)
+Ok, so lets change your tests to reflect the new Business Logic.
 
-### Uncle Bob 3 Rules
-  http://butunclebob.com/ArticleS.UncleBob.TheThreeRulesOfTdd
+```java
+import org.junit.Assert;
+import org.junit.jupiter.api.Test;
 
-  - You are not allowed to write any production code unless it is to make a failing unit test pass.
+class MainTest {
+    @Test
+    void given_a_grade_equals_or_greater_than_seven_then_status_should_be_approved() {
+        //Given
+        int grade = 7;
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Approved".toUpperCase(), status);
+    }
 
-  - You are not allowed to write any more of a unit test than is sufficient to fail; and compilation failures are failures.
+    @Test
+    void given_a_grade_equals_or_less_than_ten_then_status_should_be_approved() {
+        //Given
+        int grade = 10;
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Approved".toUpperCase(), status);
+    }
 
-  - You are not allowed to write any more production code than is sufficient to pass the one failing unit test.
+    @Test
+    void given_a_grade_less_than_seven_then_status_should_be_not_approved() {
+        //Given
+        int grade = 3;
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Not Approved".toUpperCase(), status);
+    }
+}
+```
 
-### TDD Example:
+Now we have 2 tests that exactly reflects the grade domain for APPROVED. And now we have one test failing:
 
-[FirstStep](https://github.com/lghauth/tdd-example/blob/FirstStep/FirstStep.md)
-[SecondStep](https://github.com/lghauth/tdd-example/blob/SecondStep/SecondStep.md)
-[ThirdStep](https://github.com/lghauth/tdd-example/blob/ThirdStep/ThirdStep.md)
-[FourthStep](https://github.com/lghauth/tdd-example/blob/FourthStep/FourthStep.md)
-[FifthStep](https://github.com/lghauth/tdd-example/blob/FifthStep/FifthStep.md)
+> given_a_grade_equals_or_greater_than_seven_then_status_should_be_approved
+
+> Expected :APPROVED
+> Actual   :NOT APPROVED
+
+So now that we have a failed test, we can fix our code.
+
+```java
+public class Main {
+    static String checkStatus(int grade) {
+        if (grade >= 7 && grade <= 10) {
+            return "Approved".toUpperCase();
+        } else {
+            return "Not Approved".toUpperCase();
+        }
+    }
+}
+```
+
+Now we are going to create the tests for Not Approved.
+
+> - If grade equals or greater than 0 then status is NOT APPROVED
+> - If grade equals or less than 6 then status is NOT APPROVED
+
+```java
+import org.junit.Assert;
+import org.junit.jupiter.api.Test;
+
+class MainTest {
+    @Test
+    void given_a_grade_equals_or_greater_than_seven_then_status_should_be_approved() {
+        //Given
+        int grade = 7;
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Approved".toUpperCase(), status);
+    }
+
+    @Test
+    void given_a_grade_equals_or_less_than_ten_then_status_should_be_approved() {
+        //Given
+        int grade = 10;
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Approved".toUpperCase(), status);
+    }
+
+    @Test
+    void given_a_grade_equals_or_greater_than_zero_then_status_should_be_not_approved() {
+        //Given
+        int grade = 0;
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Not Approved".toUpperCase(), status);
+    }
+
+    @Test
+    void given_a_grade_equals_or_less_than_six_then_status_should_be_not_approved() {
+        //Given
+        int grade = 6;
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Not Approved".toUpperCase(), status);
+    }
+}
+```
+
+Now we have 2 tests that exactly reflects the grade domain for NOT APPROVED. And this case we do not have any test failing.
+Which means our code is handling both APPROVED and NOT APPROVED correctly.
+
+But we can do some refactor, to make our code also tell us what is the exactly Business Logic. So lets do it, refactor our code.
+And we can do that without any fear as we have tests to ensure we will not break our Business Logic.
+
+```java
+public class Main {
+    static String checkStatus(int grade) {
+        String status = "";
+
+        if (grade >= 7 && grade <= 10) {
+            status = "Approved".toUpperCase();
+        }
+
+        if (grade >= 0 && grade <= 6) {
+            status = "Not Approved".toUpperCase();
+        }
+
+        return status;
+    }
+}
+```
+
+[FourthStep](https://github.com/lghauth/tdd-example/blob/FourthStep/README.md)
+[FifthStep](https://github.com/lghauth/tdd-example/blob/FifthStep/README.md)
