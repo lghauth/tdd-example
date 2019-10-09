@@ -27,6 +27,7 @@ broken.”
   - Unit Test to help Refactor
 
 ## Unit Tests
+  - Multimeter example
   - UNIT TESTING is a level of software testing where individual units of a software are tested.
   - Unit tests are Developer's tests. It is the Developer testing what they are coding.
 
@@ -47,6 +48,7 @@ broken.”
       - This way I ensure that new code will have test
 
 ### But what the problem of writing tests after and not before the Dev?
+  - In a project with a short deadline, tests will be left to be done after and after means never
   - But I'm writing testable code?
     - If not, most probably I'll not write tests
     - If I'm not writing tests, most probably my test suite will not be trusty
@@ -69,9 +71,7 @@ broken.”
   http://butunclebob.com/ArticleS.UncleBob.TheThreeRulesOfTdd
 
   - You are not allowed to write any production code unless it is to make a failing unit test pass.
-
   - You are not allowed to write any more of a unit test than is sufficient to fail; and compilation failures are failures.
-
   - You are not allowed to write any more production code than is sufficient to pass the one failing unit test.
 
 ### TDD Example:
