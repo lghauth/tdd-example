@@ -76,8 +76,8 @@ broken.”
 
 ### TDD Example:
 
-[FirstStep](https://github.com/lghauth/tdd-example/blob/FirstStep/FirstStep.md)
-[SecondStep](https://github.com/lghauth/tdd-example/blob/SecondStep/SecondStep.md)
-[ThirdStep](https://github.com/lghauth/tdd-example/blob/ThirdStep/ThirdStep.md)
-[FourthStep](https://github.com/lghauth/tdd-example/blob/FourthStep/FourthStep.md)
-[FifthStep](https://github.com/lghauth/tdd-example/blob/FifthStep/FifthStep.md)
+[FirstStep](https://github.com/lghauth/tdd-example/blob/FirstStep/README.md)
+[SecondStep](https://github.com/lghauth/tdd-example/blob/SecondStep/README.md)
+[ThirdStep](https://github.com/lghauth/tdd-example/blob/ThirdStep/README.md)
+[FourthStep](https://github.com/lghauth/tdd-example/blob/FourthStep/README.md)
+[FifthStep](https://github.com/lghauth/tdd-example/blob/FifthStep/README.md)
