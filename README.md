@@ -1,4 +1,13 @@
-# TDD
+# TDD and BDD
+
+## Why Developers should test?
+  - What is the problem if the Developer doesn't test their code?
+    - How many processor we have here running code?
+    - What you can do in your life without a code running?
+    - Boeing 737
+    - Volkswagen problem
+    - Insulin app
+    - Company Balance sheet
 
 > “Good unit test and acceptance test coverage are the hallmarks of an XP  project.
 An XP project takes the attitude that developers are responsible for proving to their customers that the code works correctly, not customers proving the code is
@@ -20,13 +29,6 @@ broken.”
 ## Unit Tests
   - UNIT TESTING is a level of software testing where individual units of a software are tested.
   - Unit tests are Developer's tests. It is the Developer testing what they are coding.
-  - What is the problem if the Developer doesn't test their code?
-    - How many processor we have here running code?
-    - What you can do in your life without a code running?
-    - Boeing 737
-    - Volkswagen problem
-    - Insulin app
-    - Company Balance sheet
 
 ### Unit Tests Benefits
   - Ensure your code is working
