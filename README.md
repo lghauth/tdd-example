@@ -1,81 +1,116 @@
-# TDD
+### TDD example
+#### Second Step
 
-> “Good unit test and acceptance test coverage are the hallmarks of an XP  project.
-An XP project takes the attitude that developers are responsible for proving to their customers that the code works correctly, not customers proving the code is
-broken.”
+Note: If you did not check the FirstStep Branch. Please check and follow the steps in:
 
-## The Agile Test - 4 Quadrants
+[FirstStep](https://github.com/lghauth/tdd-example/blob/FirstStep/README.md)
 
-![Agile Testing Matrix](https://www.scaledagileframework.com/wp-content/uploads/2018/09/Agile-Testing_F01_web.png)
+In the First Step we created 2 tests and also created a production code to attend the below Business Logic:
 
-## Tests Pyramid
-![Inverting the Test Pyramid](http://www.adapttransformation.com/wp-content/uploads/flip.jpg)
+> - If grade greater than 7 then status is APPROVED
+> - If grade less than 7 then status is NOT APPROVED
 
-## How the developers code? How they think when they are coding?
-  - Zig Zag
-  - Refactor?
-    - Who will touch the code? If it is not you, will someone else touch the code?
-  - Unit Test to help Refactor
+The tests:
 
-## Unit Tests
-  - UNIT TESTING is a level of software testing where individual units of a software are tested.
-  - Unit tests are Developer's tests. It is the Developer testing what they are coding.
-  - What is the problem if the Developer doesn't test their code?
-    - How many processor we have here running code?
-    - What you can do in your life without a code running?
-    - Boeing 737
-    - Volkswagen problem
-    - Insulin app
-    - Company Balance sheet
+```java
 
-### Unit Tests Benefits
-  - Ensure your code is working
-  - Maintain the code is easier
-  - Refactor
-  - A testable code is Decoupled by default
+import org.junit.Assert;
+import org.junit.jupiter.api.Test;
 
-### Test Coverage
-  - What is test coverage?
-  - The market says 80%
-  - What to test:
-    - Public methods
-  - Sonar / Build / PR
-  - Strategy to add Unit Test
-    - Start with 10% then ensure that this % will not drop
-      - This way I ensure that new code will have test
+class MainTest {
+    @Test
+    void checkStatusApproved() {
+        //Given
+        int grade = 9;
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Approved".toUpperCase(), status);
+    }
 
-### But what the problem of writing tests after and not before the Dev?
-  - But I'm writing testable code?
-    - If not, most probably I'll not write tests
-    - If I'm not writing tests, most probably my test suite will not be trusty
+    @Test
+    void checkStatusNotApproved() {
+        //Given
+        int grade = 3;
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Not Approved".toUpperCase(), status);
+    }
+}
 
-## TDD
+```
 
-### TDD Benefits
-  - TDD is a developer tool
-  - Helps the Dev to think before code
-  - Helps the Dev to question about Business Logic before coding
-    - Finger thinking
-  - YAGNI
-  - Tests as Documentation - A Developer Documentation - Code
+The problem with the tests above are that they are not reflecting the business logic. If someone else that have never
+read the business logic and only read your tests, they will think that the business logic is:
 
-### TDD Process
+> - If grade equals 9 then status is APPROVED
+> - If grade equals 3 then status is NOT APPROVED
 
-![TDD Process](https://www.scaledagileframework.com/wp-content/uploads/2018/09/Test-Driven-Development_F01_web-768x684.png)
+Which even if the tests are passing, it is not reflecting the real business logic.
+So we need to change the tests so they reflect the read business logic. Let's start with the checkStatusApproved.
 
-### Uncle Bob 3 Rules
-  http://butunclebob.com/ArticleS.UncleBob.TheThreeRulesOfTdd
+My Business logic for the status approved is:
 
-  - You are not allowed to write any production code unless it is to make a failing unit test pass.
+> - If grade greater than 7 then status is APPROVED
 
-  - You are not allowed to write any more of a unit test than is sufficient to fail; and compilation failures are failures.
+So I need a test which reflect this Business Logic. So I will start changing my test name:
 
-  - You are not allowed to write any more production code than is sufficient to pass the one failing unit test.
+```java
+class MainTest {
+    @Test
+    void given_a_grade_less_than_seven_then_status_should_be_approved() {
+        //Given
+        int grade = 9;
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Approved".toUpperCase(), status);
+    }
 
-### TDD Example:
+    @Test
+    void checkStatusNotApproved() {
+        //Given
+        int grade = 3;
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Not Approved".toUpperCase(), status);
+    }
+}
+```
 
-[FirstStep](https://github.com/lghauth/tdd-example/blob/FirstStep/FirstStep.md)
-[SecondStep](https://github.com/lghauth/tdd-example/blob/SecondStep/SecondStep.md)
-[ThirdStep](https://github.com/lghauth/tdd-example/blob/ThirdStep/ThirdStep.md)
-[FourthStep](https://github.com/lghauth/tdd-example/blob/FourthStep/FourthStep.md)
-[FifthStep](https://github.com/lghauth/tdd-example/blob/FifthStep/FifthStep.md)
+Now I'm going to change the name for the Not Approved Test, to match the business Logic:
+
+> - If grade less than 7 then status is NOT APPROVED
+
+```java
+import org.junit.Assert;
+import org.junit.jupiter.api.Test;
+
+class MainTest {
+    @Test
+    void given_a_grade_greater_than_seven_then_status_should_be_approved() {
+        //Given
+        int grade = 9;
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Approved".toUpperCase(), status);
+    }
+
+    @Test
+    void given_a_grade_less_than_seven_then_status_should_be_not_approved() {
+        //Given
+        int grade = 3;
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Not Approved".toUpperCase(), status);
+    }
+}
+```
+
+[ThirdStep](https://github.com/lghauth/tdd-example/blob/ThirdStep/README.md)
+[FourthStep](https://github.com/lghauth/tdd-example/blob/FourthStep/README.md)
+[FifthStep](https://github.com/lghauth/tdd-example/blob/FifthStep/README.md)
