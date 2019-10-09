@@ -1,81 +1,133 @@
-# TDD
+### TDD example
+#### Fourth Step
 
-> “Good unit test and acceptance test coverage are the hallmarks of an XP  project.
-An XP project takes the attitude that developers are responsible for proving to their customers that the code works correctly, not customers proving the code is
-broken.”
+Note: If you did not check the FirstStep, SecondStep, ThirdStep and FourthStep Branches. 
+Please check and follow the steps:
 
-## The Agile Test - 4 Quadrants
+[FirstStep](https://github.com/lghauth/tdd-example/blob/FirstStep/README.md)
+[SecondStep](https://github.com/lghauth/tdd-example/blob/SecondStep/README.md)
+[ThirdStep](https://github.com/lghauth/tdd-example/blob/ThirdStep/README.md)
+[FourthStep](https://github.com/lghauth/tdd-example/blob/FourthStep/README.md)
 
-![Agile Testing Matrix](https://www.scaledagileframework.com/wp-content/uploads/2018/09/Agile-Testing_F01_web.png)
+In the Fourth Step we found that the correct Business Logic is:
 
-## Tests Pyramid
-![Inverting the Test Pyramid](http://www.adapttransformation.com/wp-content/uploads/flip.jpg)
+> - If grade equals or greater than 7 then status is APPROVED
+> - If grade equals or less than 10 then status is APPROVED
 
-## How the developers code? How they think when they are coding?
-  - Zig Zag
-  - Refactor?
-    - Who will touch the code? If it is not you, will someone else touch the code?
-  - Unit Test to help Refactor
+> - If grade equals or greater than 0 then status is NOT APPROVED
+> - If grade equals or less than 6 then status is NOT APPROVED
 
-## Unit Tests
-  - UNIT TESTING is a level of software testing where individual units of a software are tested.
-  - Unit tests are Developer's tests. It is the Developer testing what they are coding.
-  - What is the problem if the Developer doesn't test their code?
-    - How many processor we have here running code?
-    - What you can do in your life without a code running?
-    - Boeing 737
-    - Volkswagen problem
-    - Insulin app
-    - Company Balance sheet
+> - If grade less than 0 then status is ERROR
+> - If grade greater than 10 then status is ERROR
 
-### Unit Tests Benefits
-  - Ensure your code is working
-  - Maintain the code is easier
-  - Refactor
-  - A testable code is Decoupled by default
+And we changed our tests and our code to reflect this new Business Logic.
 
-### Test Coverage
-  - What is test coverage?
-  - The market says 80%
-  - What to test:
-    - Public methods
-  - Sonar / Build / PR
-  - Strategy to add Unit Test
-    - Start with 10% then ensure that this % will not drop
-      - This way I ensure that new code will have test
+As mentioned in the FourthStep,  to make this code better (we are checking grade >=0
+and grade <= 10 two time) we need some refactor. 
 
-### But what the problem of writing tests after and not before the Dev?
-  - But I'm writing testable code?
-    - If not, most probably I'll not write tests
-    - If I'm not writing tests, most probably my test suite will not be trusty
+Lets do some refactor in our Main.java code.
 
-## TDD
+First, lets remove the redundant if statements.
 
-### TDD Benefits
-  - TDD is a developer tool
-  - Helps the Dev to think before code
-  - Helps the Dev to question about Business Logic before coding
-    - Finger thinking
-  - YAGNI
-  - Tests as Documentation - A Developer Documentation - Code
+```java
+public class Main {
+    static String checkStatus(int grade) {
+        if (grade >= 7 && grade <= 10) {
+            return "Approved".toUpperCase();
+        }
 
-### TDD Process
+        if (grade >= 0 && grade <= 6) {
+            return "Not Approved".toUpperCase();
+        }
 
-![TDD Process](https://www.scaledagileframework.com/wp-content/uploads/2018/09/Test-Driven-Development_F01_web-768x684.png)
+        return "Error".toUpperCase();
+    }
+}
+```
 
-### Uncle Bob 3 Rules
-  http://butunclebob.com/ArticleS.UncleBob.TheThreeRulesOfTdd
+And lets run the tests to see if everything is still working as we expect.
 
-  - You are not allowed to write any production code unless it is to make a failing unit test pass.
+> Tests passed: 6 of 6 tests - 54ms
 
-  - You are not allowed to write any more of a unit test than is sufficient to fail; and compilation failures are failures.
+Great, we can do some more refactor to make our code better:
 
-  - You are not allowed to write any more production code than is sufficient to pass the one failing unit test.
+```java
+public class Main {
+    static String checkStatus(int grade) {
+        if (isApproved(grade))
+            return "Approved".toUpperCase();
 
-### TDD Example:
+        if (isNotApproved(grade))
+            return "Not Approved".toUpperCase();
 
-[FirstStep](https://github.com/lghauth/tdd-example/blob/FirstStep/FirstStep.md)
-[SecondStep](https://github.com/lghauth/tdd-example/blob/SecondStep/SecondStep.md)
-[ThirdStep](https://github.com/lghauth/tdd-example/blob/ThirdStep/ThirdStep.md)
-[FourthStep](https://github.com/lghauth/tdd-example/blob/FourthStep/FourthStep.md)
-[FifthStep](https://github.com/lghauth/tdd-example/blob/FifthStep/FifthStep.md)
+        return "Error".toUpperCase();
+    }
+
+    private static boolean isNotApproved(int grade) {
+        return grade >= 0 && grade <= 6;
+    }
+
+    private static boolean isApproved(int grade) {
+        return grade >= 7 && grade <= 10;
+    }
+}
+```
+
+And lets run the tests to see if everything is still working as we expect.
+
+> Tests passed: 6 of 6 tests - 54ms
+
+Ok, so if you did not notice, our code does not have a Main method. And since the FirstStep until now
+we did not run our code. Only ran our tests. Now it's time to run our code, to see if it works.
+
+Let's create a Main function to simulate it:
+
+```java
+public class Main {
+    public static void main(String args[]) {
+        System.out.println(checkStatus(7).toUpperCase());
+        System.out.println(checkStatus(10).toUpperCase());
+
+        System.out.println(checkStatus(0).toUpperCase());
+        System.out.println(checkStatus(6).toUpperCase());
+
+        System.out.println(checkStatus(-1).toUpperCase());
+        System.out.println(checkStatus(11).toUpperCase());
+    }
+    
+    static String checkStatus(int grade) {
+        if (isApproved(grade))
+            return "Approved".toUpperCase();
+
+        if (isNotApproved(grade))
+            return "Not Approved".toUpperCase();
+
+        return "Error".toUpperCase();
+    }
+
+    private static boolean isNotApproved(int grade) {
+        return grade >= 0 && grade <= 6;
+    }
+
+    private static boolean isApproved(int grade) {
+        return grade >= 7 && grade <= 10;
+    }
+}
+```
+
+Ran our tests to ensure nothing changed:
+
+> Tests passed: 6 of 6 tests - 85ms
+
+And now, lets run our code, for the first time!
+
+And it works!
+
+Here is the output:
+
+APPROVED
+APPROVED
+NOT APPROVED
+NOT APPROVED
+ERROR
+ERROR
