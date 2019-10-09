@@ -97,8 +97,8 @@ Our production code is attending the Business Logic and our code is 100% covered
 
  > Main	100% (1/1)	100% (1/1)	100% (3/3)
 
-[SecondStep](https://github.com/lghauth/tdd-example/blob/SecondStep/SecondStep.md)
-[ThirdStep](https://github.com/lghauth/tdd-example/blob/ThirdStep/ThirdStep.md)
-[FourthStep](https://github.com/lghauth/tdd-example/blob/FourthStep/FourthStep.md)
-[FifthStep](https://github.com/lghauth/tdd-example/blob/FifthStep/FifthStep.md)
+[SecondStep](https://github.com/lghauth/tdd-example/blob/SecondStep/README.md)
+[ThirdStep](https://github.com/lghauth/tdd-example/blob/ThirdStep/README.md)
+[FourthStep](https://github.com/lghauth/tdd-example/blob/FourthStep/README.md)
+[FifthStep](https://github.com/lghauth/tdd-example/blob/FifthStep/README.md)
  
