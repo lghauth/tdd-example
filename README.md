@@ -1,81 +1,226 @@
-# TDD
+### TDD example
+#### Fourth Step
 
-> “Good unit test and acceptance test coverage are the hallmarks of an XP  project.
-An XP project takes the attitude that developers are responsible for proving to their customers that the code works correctly, not customers proving the code is
-broken.”
+Note: If you did not check the FirstStep, SecondStep and ThirdStep Branches. 
+Please check and follow the steps:
 
-## The Agile Test - 4 Quadrants
+[FirstStep](https://github.com/lghauth/tdd-example/blob/FirstStep/README.md)
+[SecondStep](https://github.com/lghauth/tdd-example/blob/SecondStep/README.md)
+[ThirdStep](https://github.com/lghauth/tdd-example/blob/ThirdStep/README.md)
 
-![Agile Testing Matrix](https://www.scaledagileframework.com/wp-content/uploads/2018/09/Agile-Testing_F01_web.png)
+In the Third Step we found that the correct Business Logic is:
 
-## Tests Pyramid
-![Inverting the Test Pyramid](http://www.adapttransformation.com/wp-content/uploads/flip.jpg)
+> - If grade equals or greater than 7 then status is APPROVED
+> - If grade equals or less than 10 then status is APPROVED
 
-## How the developers code? How they think when they are coding?
-  - Zig Zag
-  - Refactor?
-    - Who will touch the code? If it is not you, will someone else touch the code?
-  - Unit Test to help Refactor
+> - If grade equals or greater than 0 then status is NOT APPROVED
+> - If grade equals or less than 6 then status is NOT APPROVED
 
-## Unit Tests
-  - UNIT TESTING is a level of software testing where individual units of a software are tested.
-  - Unit tests are Developer's tests. It is the Developer testing what they are coding.
-  - What is the problem if the Developer doesn't test their code?
-    - How many processor we have here running code?
-    - What you can do in your life without a code running?
-    - Boeing 737
-    - Volkswagen problem
-    - Insulin app
-    - Company Balance sheet
+And we changed our tests and our code to reflect this new Business Logic.
 
-### Unit Tests Benefits
-  - Ensure your code is working
-  - Maintain the code is easier
-  - Refactor
-  - A testable code is Decoupled by default
+By looking our tests/code/Business Logic another question comes to our mind. 
+What happens when the grade is out of the domain for APPROVED and NOT APPROVED?
+What happens if the grade is less than 0 or greater than 10.
 
-### Test Coverage
-  - What is test coverage?
-  - The market says 80%
-  - What to test:
-    - Public methods
-  - Sonar / Build / PR
-  - Strategy to add Unit Test
-    - Start with 10% then ensure that this % will not drop
-      - This way I ensure that new code will have test
+So we need to ask to PO again. Asking him the questions above, his answer is if the grade is
+less than 0 the status should be error and if the grade is greater than 10 also should be error.
 
-### But what the problem of writing tests after and not before the Dev?
-  - But I'm writing testable code?
-    - If not, most probably I'll not write tests
-    - If I'm not writing tests, most probably my test suite will not be trusty
+So now we have our Business Logic:
 
-## TDD
+> - If grade equals or greater than 7 then status is APPROVED
+> - If grade equals or less than 10 then status is APPROVED
 
-### TDD Benefits
-  - TDD is a developer tool
-  - Helps the Dev to think before code
-  - Helps the Dev to question about Business Logic before coding
-    - Finger thinking
-  - YAGNI
-  - Tests as Documentation - A Developer Documentation - Code
+> - If grade equals or greater than 0 then status is NOT APPROVED
+> - If grade equals or less than 6 then status is NOT APPROVED
 
-### TDD Process
+> - If grade less than 0 then status is ERROR
+> - If grade greater than 10 then status is ERROR
 
-![TDD Process](https://www.scaledagileframework.com/wp-content/uploads/2018/09/Test-Driven-Development_F01_web-768x684.png)
+Let's write a test for it!!
 
-### Uncle Bob 3 Rules
-  http://butunclebob.com/ArticleS.UncleBob.TheThreeRulesOfTdd
+```java
+import org.junit.Assert;
+import org.junit.jupiter.api.Test;
 
-  - You are not allowed to write any production code unless it is to make a failing unit test pass.
+class MainTest {
+    @Test
+    void given_a_grade_equals_or_greater_than_seven_then_status_should_be_approved() {
+        //Given
+        int grade = 7;
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Approved".toUpperCase(), status);
+    }
 
-  - You are not allowed to write any more of a unit test than is sufficient to fail; and compilation failures are failures.
+    @Test
+    void given_a_grade_equals_or_less_than_ten_then_status_should_be_approved() {
+        //Given
+        int grade = 10;
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Approved".toUpperCase(), status);
+    }
 
-  - You are not allowed to write any more production code than is sufficient to pass the one failing unit test.
+    @Test
+    void given_a_grade_equals_or_greater_than_zero_then_status_should_be_not_approved() {
+        //Given
+        int grade = 0;
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Not Approved".toUpperCase(), status);
+    }
 
-### TDD Example:
+    @Test
+    void given_a_grade_equals_or_less_than_six_then_status_should_be_not_approved() {
+        //Given
+        int grade = 6;
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Not Approved".toUpperCase(), status);
+    }
 
-[FirstStep](https://github.com/lghauth/tdd-example/blob/FirstStep/FirstStep.md)
-[SecondStep](https://github.com/lghauth/tdd-example/blob/SecondStep/SecondStep.md)
-[ThirdStep](https://github.com/lghauth/tdd-example/blob/ThirdStep/ThirdStep.md)
-[FourthStep](https://github.com/lghauth/tdd-example/blob/FourthStep/FourthStep.md)
-[FifthStep](https://github.com/lghauth/tdd-example/blob/FifthStep/FifthStep.md)
+    @Test
+    void given_a_grade_less_than_zero_then_status_should_be_error(){
+        //Given
+        int grade = -1;
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Error".toUpperCase(), status);
+    }
+}
+```
+
+Now that we have a failed test, we can go and change our code.
+
+> Expected :ERROR
+> Actual   :
+
+```java
+public class Main {
+    static String checkStatus(int grade) {
+        String status = "";
+
+        if (grade >= 0) {
+            if (grade >= 7 && grade <= 10) {
+                status = "Approved".toUpperCase();
+            }
+
+            if (grade >= 0 && grade <= 6) {
+                status = "Not Approved".toUpperCase();
+            }
+        } else {
+            status = "Error".toUpperCase();
+        }
+
+        return status;
+    }
+}
+```
+
+Lets write the other test:
+
+```java
+import org.junit.Assert;
+import org.junit.jupiter.api.Test;
+
+class MainTest {
+    @Test
+    void given_a_grade_equals_or_greater_than_seven_then_status_should_be_approved() {
+        //Given
+        int grade = 7;
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Approved".toUpperCase(), status);
+    }
+
+    @Test
+    void given_a_grade_equals_or_less_than_ten_then_status_should_be_approved() {
+        //Given
+        int grade = 10;
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Approved".toUpperCase(), status);
+    }
+
+    @Test
+    void given_a_grade_equals_or_greater_than_zero_then_status_should_be_not_approved() {
+        //Given
+        int grade = 0;
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Not Approved".toUpperCase(), status);
+    }
+
+    @Test
+    void given_a_grade_equals_or_less_than_six_then_status_should_be_not_approved() {
+        //Given
+        int grade = 6;
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Not Approved".toUpperCase(), status);
+    }
+
+    @Test
+    void given_a_grade_less_than_zero_then_status_should_be_error(){
+        //Given
+        int grade = -1;
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Error".toUpperCase(), status);
+    }
+
+    @Test
+    void given_a_grade_greater_than_ten_then_status_should_be_error(){
+        //Given
+        int grade = 11;
+        //When
+        String status = Main.checkStatus(grade);
+        //Then
+        Assert.assertEquals("Error".toUpperCase(), status);
+    }
+}
+```
+
+Now that we have a failed test, we can go and change our code.
+
+> Expected :ERROR
+>  Actual
+
+```java
+public class Main {
+    static String checkStatus(int grade) {
+        String status = "";
+
+        if (grade >= 0 && grade <= 10) {
+            if (grade >= 7 && grade <= 10) {
+                status = "Approved".toUpperCase();
+            }
+
+            if (grade >= 0 && grade <= 6) {
+                status = "Not Approved".toUpperCase();
+            }
+        } else {
+            status = "Error".toUpperCase();
+        }
+
+        return status;
+    }
+}
+```
+
+Ok, my code is working now. Of course there are some refactor to be done, to make this code
+better (we are checking grade >=0 and grade <= 10 two time).
+
+In the FifthStep we are going to work in some refactor.  
+
+[FifthStep](https://github.com/lghauth/tdd-example/blob/FifthStep/README.md)
