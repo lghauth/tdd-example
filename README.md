@@ -176,18 +176,20 @@ As a teacher,
 I want the system to determine if the approval status based on the grade
 so that I can decide if it is approved or not approved
 
-given a grade equals or greater than 7
-and equals or lower than 10
-when the system verify the status
-then it should return APPROVED
+> - given a grade equals or greater than 7
+> - and equals or lower than 10
+> - when the system verify the status
+> - then it should return APPROVED
 
-given a grade lower than 7
-and equals or greater than 0
-when the system verify the status
-then it should return NOT APPROVED
 
-given a grade lower than 0
-and greater than 10
-when the system verify the status
-then it should return ERROR
+> - given a grade lower than 7
+> - and equals or greater than 0
+> - when the system verify the status
+> - then it should return NOT APPROVED
+
+
+> - given a grade lower than 0
+> - and greater than 10
+> - when the system verify the status
+> - then it should return ERROR
 
