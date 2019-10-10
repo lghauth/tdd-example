@@ -18,6 +18,7 @@ broken.”
 ![Agile Testing Matrix](https://www.scaledagileframework.com/wp-content/uploads/2018/09/Agile-Testing_F01_web.png)
 
 ## Tests Pyramid
+![Testing Pyramid](https://martinfowler.com/articles/practical-test-pyramid/testPyramid.png)
 ![Inverting the Test Pyramid](http://www.adapttransformation.com/wp-content/uploads/flip.jpg)
 
 ## How the developers code? How they think when they are coding?
@@ -55,12 +56,14 @@ broken.”
 
 ## TDD
 
+### TDD History
+
 ### TDD Benefits
   - TDD is a developer tool
   - Helps the Dev to think before code
   - Helps the Dev to question about Business Logic before coding
     - Finger thinking
-  - YAGNI
+  - YAGNI - You ain't gonna need it. 
   - Tests as Documentation - A Developer Documentation - Code
 
 ### TDD Process
