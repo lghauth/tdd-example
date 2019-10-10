@@ -58,6 +58,23 @@ broken.”
 
 ### TDD History
 
+It is a very old technique.
+
+Early 1960s IBM run a project for NASA using a technique equivalent to TDD:
+
+> "Project Mercury ran with very short (half-day) iterations that were time boxed. 
+> The development team conducted a technical review of all changes, and, interestingly, 
+> applied the Extreme Programming practice of test-first development, planning and writing tests 
+> before each micro-increment."
+
+Before that, the oldest reference to the root of TDD:
+
+> "The first attack on the checkout problem may be made before coding is begun. In order to fully ascertain the 
+> accuracy of the answers, it is necessary to have a hand-calculated  check case with which to compare the answers which
+> will later be calculated by the machine"
+
+> Digital Computer Programming D.D. McCracken, 1957
+>
 ### TDD Benefits
   - TDD is a developer tool
   - Helps the Dev to think before code
