@@ -48,6 +48,11 @@ broken.”
     - Start with 10% then ensure that this % will not drop
       - This way I ensure that new code will have test
 
+## How deep are your unit tests?
+
+> "I get paid for code that works, not for tests, so my philosophy is to test as little as 
+> possible to reach a given level of confidence." Kent Beck
+
 ### But what the problem of writing tests after and not before the Dev?
   - In a project with a short deadline, tests will be left to be done after and after means never
   - But I'm writing testable code?
