@@ -74,7 +74,16 @@ Before that, the oldest reference to the root of TDD:
 > will later be calculated by the machine"
 
 > Digital Computer Programming D.D. McCracken, 1957
->
+
+### TDD 5 Principles
+
+F.I.R.S.T
+- Fast
+- Isolated
+- Repeatable
+- Self-Verifying
+- Timely
+
 ### TDD Benefits
   - TDD is a developer tool
   - Helps the Dev to think before code
