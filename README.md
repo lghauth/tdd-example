@@ -30,6 +30,8 @@ Increase Confidence:
     - Get inside someone else's head:
         - You cannot think about what would make someone confidence, unless you think as them:
             - Empathy
+    
+> Tests is about other people, about confidence, about evidence
         
 ## Why Developers should test?
   - What is the problem if the Developer doesn't test their code?
