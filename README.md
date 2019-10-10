@@ -1,5 +1,36 @@
 # TDD
 
+## The goal of testing...
+
+> "to increase confidence for stakeholders through evidence" Dan North
+
+Stakeholders:
+- people
+- If I'm building a software, who are my stakeholders:
+    - Users
+    - Developers
+    - Future you
+        - 6 months ago I'm a rubbish programmer
+    - PO
+    - Security, Support, Analysts, Managers,...
+    - People who lives, that your work touch
+    
+Increase Confidence:
+    - it is not my confidence, it is their confidence
+    - increase by how much?
+        - If I'm security, what gives me confidence?
+        - If I'm user, what gives me confidence?
+        - If I'm developer, what give me confidence?
+        
+- How I achieve confidence?
+    - By saying "Trust me"? No, through evidence
+    - How will you demonstrate it?
+    
+- A good tester has 1 super powers:
+    - Get inside someone else's head:
+        - You cannot think about what would make someone confidence, unless you think as them:
+            - Empathy
+        
 ## Why Developers should test?
   - What is the problem if the Developer doesn't test their code?
     - How many processor we have here running code?
