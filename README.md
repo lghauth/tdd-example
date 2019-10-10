@@ -26,7 +26,7 @@ Increase Confidence:
     - By saying "Trust me"? No, through evidence
     - How will you demonstrate it?
     
-- A good tester has 1 super powers:
+- A good tester has 3 super powers, the most important:
     - Get inside someone else's head:
         - You cannot think about what would make someone confidence, unless you think as them:
             - Empathy
